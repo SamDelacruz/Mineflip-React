@@ -1,4 +1,5 @@
 # Mineflip React UI
+[![Build Status](https://travis-ci.org/SamDelacruz/Mineflip-React.svg?branch=master)](https://travis-ci.org/SamDelacruz/Mineflip-React)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
