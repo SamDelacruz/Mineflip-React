@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Board from './components/board';
+import Board from './containers/board';
 
 class App extends Component {
-  renderBoard() {
-    return (
-      <Board />
-    )
-  }
-
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <div className="App-intro">
-          {this.renderBoard()}
+      <div className="container-fluid board">
+        <div className="row justify-content-lg-center">
+          <div className="col-lg-6">
+            <div className="card board">
+              <div className="card-block">
+                <Board />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
