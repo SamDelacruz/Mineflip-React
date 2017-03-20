@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { revealTile } from '../actions';
 
 const COLOR_RED = "#FF4136";
 const COLOR_GREEN = "#2ECC40";
@@ -56,14 +57,20 @@ class Board extends Component {
     );
   }
 
+  cellOnClick(x, y) {
+    this.props.revealTile(this.props.gameId, x, y);
+  }
+
   // Put this in a component
-  renderCell(rowIdx, colIdx) {
+  renderCell(rowIdx, colIdx, val) {
     return (
       <g className="cell" key={`cell-${rowIdx},${colIdx}`} transform={`translate(${colIdx * 120},0)`}>
         <rect className="shadow" width="100" height="100" fill="#CCCCCC" rx="10" ry="10" y="8"/>
-        <g className="tile">
+        <g className="tile" onClick={() => this.cellOnClick(rowIdx, colIdx)}>
           <rect width="100" height="100" fill="#EFEFEF" rx="10" ry="10" />
-          <text textAnchor="middle" x="50" y="67" fontSize="70" fill="#777" fontFamily="monospace">?</text>
+          <text textAnchor="middle" x="50" y="67" fontSize="70" fill="#777" fontFamily="monospace">
+            {this.props.board[colIdx][rowIdx]}
+          </text>
         </g>
       </g>
     );
@@ -122,7 +129,13 @@ class Board extends Component {
 }
 
 function mapStateToProps(state) {
-  return { board: state.board }
+  return { board: state.game.board, gameId: state.game.id }
 }
 
-export default connect(mapStateToProps)(Board);
+function mapDispatchToProps(dispatch) {
+  return {
+    revealTile: (gameId, x, y) => dispatch(revealTile(gameId, x, y))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
