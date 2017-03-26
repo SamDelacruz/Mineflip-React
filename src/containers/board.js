@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { revealTile } from '../actions';
+import Cell from '../components/cell';
+import Hint from '../components/hint';
 
-const COLOR_RED = "#FF4136";
-const COLOR_GREEN = "#2ECC40";
-const COLOR_YELLOW = "#FFDC00";
-const COLOR_BLUE = "#0074D9";
-const COLOR_PURPLE = "#B10DC9";
+export const COLOR_RED = "#FF4136";
+export const COLOR_GREEN = "#2ECC40";
+export const COLOR_YELLOW = "#FFDC00";
+export const COLOR_BLUE = "#0074D9";
+export const COLOR_PURPLE = "#B10DC9";
 
 class Board extends Component {
   renderBoard() {
@@ -47,7 +49,7 @@ class Board extends Component {
                 return this.renderCell(rowIdx, colIdx);
               })}
               <g className="cell" transform="translate(600, 0)">
-                {this.renderHint(rowIdx)}
+                <Hint idx={rowIdx} />
               </g>
             </g>
           );
@@ -61,18 +63,15 @@ class Board extends Component {
     this.props.revealTile(this.props.gameId, x, y);
   }
 
-  // Put this in a component
-  renderCell(rowIdx, colIdx, val) {
+  renderCell(rowIdx, colIdx) {
+    let props = {
+      rowIdx, colIdx,
+      onClickCB: this.cellOnClick.bind(this, colIdx, rowIdx)
+    }
     return (
-      <g className="cell" key={`cell-${rowIdx},${colIdx}`} transform={`translate(${colIdx * 120},0)`}>
-        <rect className="shadow" width="100" height="100" fill="#CCCCCC" rx="10" ry="10" y="8"/>
-        <g className="tile" onClick={() => this.cellOnClick(colIdx, rowIdx)}>
-          <rect width="100" height="100" fill="#EFEFEF" rx="10" ry="10" />
-          <text textAnchor="middle" x="50" y="67" fontSize="70" fill="#777" fontFamily="monospace">
-            {this.props.board[rowIdx][colIdx]}
-          </text>
-        </g>
-      </g>
+      <Cell key={`cell-${rowIdx},${colIdx}`} {...props}>
+        {this.props.board[rowIdx][colIdx]}
+      </Cell>
     );
   }
 
@@ -82,39 +81,10 @@ class Board extends Component {
         {this.props.board[0].map((_, colIdx) => {
           return (
             <g key={`hint-5,${colIdx}`} className="cell" transform={`translate(${colIdx * 120}, 0)`}>
-              {this.renderHint(colIdx)}
+              <Hint idx={colIdx} />
             </g>
           )
         })}
-      </g>
-    );
-  }
-
-  // Probably make this a component too
-  renderHint(idx) {
-    let [ primaryColor, secondaryColor ] = (i => {
-      switch(i) {
-        case 0:
-          return [ COLOR_RED, "#D00" ];
-        case 1:
-          return [ COLOR_GREEN, "#180" ];
-        case 2:
-          return [ COLOR_YELLOW, "#B80" ];
-        case 3:
-          return [ COLOR_BLUE, "#04B" ];
-        case 4:
-          return [ COLOR_PURPLE, "#808" ];
-        default:
-          return [ "#EFEFEF", "#777" ];
-      }
-    })(idx);
-
-    return (
-      <g className="hint" textAnchor="middle" fontSize="36" fill="#fff" fontFamily="monospace">
-        <rect className="hint-shadow" width="100" height="100" fill={secondaryColor} rx="10" ry="10" y="8"/>
-        <rect width="100" height="100" fill={primaryColor} rx="10" ry="10" />
-        <text x="50" y="40">*4</text>
-        <text x="50" y="80">9</text>
       </g>
     );
   }
