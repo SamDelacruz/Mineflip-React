@@ -4,10 +4,20 @@ export const GAME_DATA_FETCH_SUCCESS = 'GAME_DATA_FETCH_SUCCESS';
 export const GAME_IS_LOADING = 'GAME_IS_LOADING';
 export const GAME_HAS_ERROR = 'GAME_HAS_ERROR';
 
-const CREATE_GAME_URL = 'http://localhost:3001/games';
+const API_ROOT = (() => {
+  if(process.env.NODE_ENV === 'production') {
+    return 'http://api.mineflip.com';
+  } else {
+    return 'http://localhost:3001';
+  }
+})();
+
+const CREATE_GAME_URL = (() => {
+  return `${API_ROOT}/games`;
+})();
 
 function revealTileUrl(gameId, x, y) {
-  return `http://localhost:3001/games/${gameId}/tiles/${x}/${y}`;
+  return `${API_ROOT}/games/${gameId}/tiles/${x}/${y}`;
 }
 
 export function gameDataFetchSuccess(game) {
