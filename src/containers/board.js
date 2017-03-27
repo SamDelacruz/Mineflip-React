@@ -91,8 +91,10 @@ class Board extends Component {
 
   render() {
     return (
-      <div>
-        {this.renderBoard()}
+      <div className="card board">
+        <div className="card-block">
+          {this.renderBoard()}
+        </div>
       </div>
     );
   }
