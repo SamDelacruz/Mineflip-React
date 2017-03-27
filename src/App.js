@@ -7,7 +7,9 @@ import Controls from './containers/controls';
 
 class App extends Component {
   componentDidMount() {
-    this.props.createGame();
+    if(this.props.createGame) {
+      this.props.createGame();
+    }
   }
 
   render() {
