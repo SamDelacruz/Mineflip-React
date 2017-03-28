@@ -17,7 +17,11 @@ const INITIAL_GAME = {
   id: 0,
   score: 0,
   gameOver: false,
-  board: INITIAL_BOARD_STATE
+  board: INITIAL_BOARD_STATE,
+  hints: {
+    cols: [],
+    rows: []
+  }
 };
 
 const INITIAL_STATE = {

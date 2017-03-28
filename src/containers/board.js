@@ -49,7 +49,7 @@ class Board extends Component {
                 return this.renderCell(rowIdx, colIdx);
               })}
               <g className="cell" transform="translate(600, 0)">
-                <Hint idx={rowIdx} />
+                <Hint idx={rowIdx} {...this._getRowHints(rowIdx)} />
               </g>
             </g>
           );
@@ -70,9 +70,17 @@ class Board extends Component {
     }
     return (
       <Cell key={`cell-${rowIdx},${colIdx}`} {...props}>
-        {this.props.board[rowIdx][colIdx]}
+        {this._cellVal(rowIdx, colIdx)}
       </Cell>
     );
+  }
+
+  _cellVal(rowIdx, colIdx) {
+    if(this.props.board){
+      let val = this.props.board[rowIdx][colIdx];
+      if(val === '?') { return ''; }
+      return val;
+    }
   }
 
   renderHints() {
@@ -81,12 +89,26 @@ class Board extends Component {
         {this.props.board[0].map((_, colIdx) => {
           return (
             <g key={`hint-5,${colIdx}`} className="cell" transform={`translate(${colIdx * 120}, 0)`}>
-              <Hint idx={colIdx} />
+              <Hint
+                idx={colIdx} {...this._getColHints(colIdx)}
+              />
             </g>
           )
         })}
       </g>
     );
+  }
+
+  _getColHints(j) {
+    if(this.props.hints) {
+      return this.props.hints.cols[j];
+    }
+  }
+
+  _getRowHints(i) {
+    if(this.props.hints) {
+      return this.props.hints.rows[i];
+    }
   }
 
   render() {
@@ -101,7 +123,7 @@ class Board extends Component {
 }
 
 function mapStateToProps(state) {
-  return { board: state.game.board, gameId: state.game.id }
+  return { board: state.game.board, gameId: state.game.id, hints: state.game.hints }
 }
 
 function mapDispatchToProps(dispatch) {
