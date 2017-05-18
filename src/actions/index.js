@@ -6,7 +6,7 @@ export const GAME_HAS_ERROR = 'GAME_HAS_ERROR';
 
 const API_ROOT = (() => {
   if(process.env.NODE_ENV === 'production') {
-    return 'http://api.mineflip.com';
+    return 'https://go-mineflip.herokuapp.com';
   } else {
     return 'http://localhost:3001';
   }
@@ -61,7 +61,7 @@ export function createGame() {
 
 export function revealTile(game, x, y) {
   return dispatch => {
-    fetch(revealTileUrl(game, x, y), { method: 'PUT' })
+    fetch(revealTileUrl(game, x, y), { method: 'GET' })
       .then((response) => {
         if(!response.ok) {
           throw Error(response.statusText);
