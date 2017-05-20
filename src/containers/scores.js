@@ -7,9 +7,7 @@ class Scores extends Component {
       <div>
         <div className="card" style={{marginBottom: '1em'}}>
           <div className="card-block">
-            <h2 className="card-title">MineFlip</h2>
-            <hr />
-            <h3 className="card-title">Score: {this.props.score}</h3>
+            <h3 className="text-center">Score: {this.props.score}</h3>
           </div>
         </div>
       </div>

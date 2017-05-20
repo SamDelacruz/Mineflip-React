@@ -12,12 +12,16 @@ export const COLOR_PURPLE = "#B10DC9";
 
 class Board extends Component {
   renderBoard() {
+    const blur = this.props.blurred ? 'url(#blurMe)' : '';
     return (
-      <svg className="board" viewBox="0 0 700 720">
-        <g className="box">
+      <svg className="board" viewBox="-17 -18 735 756">
+        <g className="box" filter={blur}>
           {this.renderLines()}
           {this.renderCells()}
         </g>
+        <filter id="blurMe">
+          <feGaussianBlur in="SourceGraphic" stdDeviation="3"/>
+        </filter>
       </svg>
     );
   }
@@ -113,17 +117,20 @@ class Board extends Component {
 
   render() {
     return (
-      <div className="card board">
-        <div className="card-block">
-          {this.renderBoard()}
-        </div>
+      <div className="card-block">
+        {this.renderBoard()}
       </div>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { board: state.game.board, gameId: state.game.id, hints: state.game.hints }
+  return { 
+    board: state.game.board,
+    gameId: state.game.id,
+    hints: state.game.hints,
+    blurred: state.game.game_won || state.game.game_lost
+  }
 }
 
 function mapDispatchToProps(dispatch) {

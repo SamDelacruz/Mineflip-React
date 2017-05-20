@@ -8,7 +8,7 @@ const API_ROOT = (() => {
   if(process.env.NODE_ENV === 'production') {
     return 'https://go-mineflip.herokuapp.com';
   } else {
-    return 'http://localhost:3001';
+    return 'http://' + window.location.hostname + ':3001';
   }
 })();
 

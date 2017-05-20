@@ -6,11 +6,7 @@ class Controls extends Component {
   render() {
     return (
       <div>
-        <div className="card">
-          <div className="card-block">
-            <button onClick={this.props.createGame} className="btn btn-primary btn-block">New Game</button>
-          </div>
-        </div>
+        <button onClick={this.props.createGame} className="btn btn-primary btn-block">{this.props.newGameBtnContents}</button>
       </div>
     );
   }
