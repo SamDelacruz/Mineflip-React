@@ -7,6 +7,7 @@ import { Router, Route, browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
 import App from './App';
+import NotFound from './components/not_found';
 import configureStore from './store/configureStore';
 import './index.css';
 
@@ -44,6 +45,7 @@ ReactDOM.render(
     <Router history={history}>
       <Route path={'/'} component={App}/>
       <Route path={'/games/:id'} component={App}/>
+      <Route path={'/*'} component={NotFound}/>
     </Router>
   </Provider>,
   document.getElementById('root')
