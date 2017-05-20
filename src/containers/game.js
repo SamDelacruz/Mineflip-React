@@ -2,7 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Board from './board';
-import Scores from './scores';
 import Controls from './controls';
 
 const GameWon = ({score}) => {

@@ -2,6 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 
+import ReactGA from 'react-ga';
+ReactGA.initialize('UA-53289009-3');
+
+const logPageView = () => {
+  ReactGA.set({ page: window.location.pathname + window.location.search });
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}
+
 import { Router, Route, browserHistory } from 'react-router';
 
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -42,7 +50,7 @@ const history = syncHistoryWithStore(
 
 ReactDOM.render(
   <Provider store={store}>
-    <Router history={history}>
+    <Router history={history} onUpdate={logPageView} >
       <Route path={'/'} component={App}/>
       <Route path={'/games/:id'} component={App}/>
       <Route path={'/*'} component={NotFound}/>
