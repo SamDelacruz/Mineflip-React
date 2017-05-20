@@ -1,41 +1,34 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { createGame } from './actions';
-import Board from './containers/board';
-import Scores from './containers/scores';
-import Controls from './containers/controls';
+
+import { createGame, getGame } from './actions';
+import Game from './containers/game';
 
 class App extends Component {
   componentDidMount() {
     if(this.props.createGame) {
-      this.props.createGame();
+      if(this.props.params === undefined) {
+        this.props.createGame();
+      } else {
+        this.props.getGame(this.props.params.id);
+      }
     }
   }
-
   render() {
     return (
-      <div className="container-fluid board">
-        <div className="row justify-content-lg-center">
-          <div className="col-lg-6">
-            <Board />
-          </div>
-          <div className="col-lg-3">
-            <Scores />
-            <Controls />
-          </div>
-        </div>
-      </div>
+      <Game />
     );
   }
 }
 
 function mapStateToProps(state) {
-  return {};
+  return { };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createGame: dispatch(createGame())
+    createGame: () => { dispatch(createGame()) },
+    getGame: (id) => { dispatch(getGame(id)) }
   };
 }
 

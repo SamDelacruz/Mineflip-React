@@ -42,8 +42,22 @@ export function gameHasError(bool) {
 }
 
 export function createGame() {
+  return fetchGame();
+}
+
+export function getGame(gameId) {
+  return fetchGame(gameId);
+}
+
+function fetchGame(gameId) {
+  var url = CREATE_GAME_URL;
+  var method = 'POST';
+  if(gameId !== undefined) {
+    url = `${url}/${gameId}`;
+    method = 'GET';
+  }
   return dispatch => {
-    fetch(CREATE_GAME_URL, { method: 'POST' })
+    fetch(url, { method: method })
       .then((response) => {
         if(!response.ok) {
           throw Error(response.statusText);
