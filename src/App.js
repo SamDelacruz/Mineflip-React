@@ -5,13 +5,19 @@ import { createGame, getGame } from './actions';
 import Game from './containers/game';
 
 class App extends Component {
-  componentDidMount() {
-    if(this.props.createGame) {
-      if(this.props.params === undefined) {
+  constructor(props) {
+    super(props);
+    if(props.params.id === undefined) {
         this.props.createGame();
       } else {
-        this.props.getGame(this.props.params.id);
+        this.props.getGame(props.params.id);
       }
+  }
+
+  componentWillUpdate(nextProps, nextState) {
+    // When game in url doesn't match that in the store, fetch it
+    if(nextProps.currentGameId !== nextProps.params.id) {
+      this.props.getGame(nextProps.params.id);
     }
   }
   render() {
@@ -22,7 +28,7 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  return { };
+  return { currentGameId: state.game.id };
 }
 
 function mapDispatchToProps(dispatch) {
