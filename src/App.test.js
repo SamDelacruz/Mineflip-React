@@ -24,3 +24,13 @@ const INITIAL_STATE = {
 }
 
 const store = configureStore(INITIAL_STATE);
+
+it('renders without crashing', () => {
+  const div = document.createElement('div');
+  ReactDOM.render(
+    <Provider store={store}>
+      <p>Test me</p>
+    </Provider>,
+    div
+  );
+});
