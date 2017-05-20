@@ -57,9 +57,6 @@ const Game = function(props) {
             </div>
             {renderOverlay()}
         </div>
-        <div className="col-lg-3">
-          <Scores />
-        </div>
       </div>
     </div>
   );
