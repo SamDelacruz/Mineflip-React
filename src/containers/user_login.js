@@ -1,5 +1,6 @@
 import React from 'react';
 import Button from '../components/button';
+import Auth from '../service/auth';
 
 export default class UserLoginContainer extends React.PureComponent {
   renderContent() {
@@ -14,7 +15,7 @@ export default class UserLoginContainer extends React.PureComponent {
     return (
       <div>
         <p className="card-text text-center">Login to record scores</p>
-        <Button onClick={() => console.log('LOG ME IN')}>Login</Button>
+        <Button onClick={() => (new Auth()).login()}>Login</Button>
       </div>
     )
   }

@@ -1,15 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-
 import ReactGA from 'react-ga';
-ReactGA.initialize('UA-53289009-3');
-
-const logPageView = () => {
-  ReactGA.set({ page: window.location.pathname + window.location.search });
-  ReactGA.pageview(window.location.pathname + window.location.search);
-}
-
 import { Router, Route, browserHistory } from 'react-router';
 
 import { syncHistoryWithStore } from 'react-router-redux';
@@ -18,6 +10,12 @@ import App from './App';
 import NotFound from './components/not_found';
 import configureStore from './store/configureStore';
 import './index.css';
+ReactGA.initialize('UA-53289009-3');
+
+const logPageView = () => {
+  ReactGA.set({ page: window.location.pathname + window.location.search });
+  ReactGA.pageview(window.location.pathname + window.location.search);
+}
 
 const INITIAL_BOARD_STATE = [
   ['?', '?', '?', '?', '?'],
