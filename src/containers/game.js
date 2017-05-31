@@ -49,15 +49,9 @@ class Game extends React.PureComponent {
   }
   render() {      
     return (
-      <div className="container-fluid board">
-        <div className="row justify-content-lg-center">
-          <div className="col-lg-6">
-              <div className="card board">
-                <BoardContainer/>
-              </div>
-              {this.renderOverlay()}
-          </div>
-        </div>
+      <div className="card board">
+        <BoardContainer/>
+        {this.renderOverlay()}
       </div>
     );
   }

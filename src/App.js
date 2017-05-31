@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 
 import { createGame, getGame } from './actions';
 import Game from './containers/game';
+import LeaderboardContainer from './containers/leaderboard';
+import UserLoginContainer from './containers/user_login';
 
 class App extends Component {
   constructor(props) {
@@ -22,7 +24,17 @@ class App extends Component {
   }
   render() {
     return (
-      <Game />
+      <div className="container-fluid board">
+        <div className="row justify-content-lg-center">
+          <div className="col-lg-6">
+            <Game />
+          </div>
+          <div className="col-lg-3">
+            <LeaderboardContainer/>
+            <UserLoginContainer/>
+          </div>
+        </div>
+      </div>
     );
   }
 }
