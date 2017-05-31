@@ -1,9 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {
   COLOR_RED, COLOR_GREEN, COLOR_YELLOW, COLOR_BLUE, COLOR_PURPLE
-} from '../containers/board';
+} from './board';
 
-export default class Hint extends Component {
+export default class Hint extends React.PureComponent {
   render() {
     let [ primaryColor, secondaryColor ] = (i => {
       switch(i) {

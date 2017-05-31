@@ -1,15 +1,15 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import Board from './board';
-import Controls from './controls';
+import BoardContainer from './board_container';
+import NewGameButton from './new_game_button';
 
 const GameWon = ({score}) => {
   return (
     <div className="card-block text-center">
       <h2>You win!</h2>
       <p>Score: {score}</p>
-      <Controls newGameBtnContents="Play again" />
+      <NewGameButton>Play again</NewGameButton>
     </div>
   )
 }
@@ -19,23 +19,23 @@ const GameLost = () => {
     <div className="card-block text-center">
       <h2>Game Over!</h2>
       <p>Try again?</p>
-      <Controls newGameBtnContents="Retry" />
+      <NewGameButton>Retry</NewGameButton>
     </div>
   )
 }
 
-const Game = function(props) {
-  const renderOverlay = () => {
+class Game extends React.PureComponent {
+  renderOverlay() {
     var content;
-    if(props.game_lost) {
+    if(this.props.game_lost) {
       content = (
         <GameLost/>
       )
     }
 
-    if(props.game_won) {
+    if(this.props.game_won) {
       content = (
-        <GameWon score={props.score}/>
+        <GameWon score={this.props.score}/>
       )
     }
 
@@ -47,18 +47,20 @@ const Game = function(props) {
       )
     }
   }
-  return (
-    <div className="container-fluid board">
-      <div className="row justify-content-lg-center">
-        <div className="col-lg-6">
-            <div className="card board">
-              <Board/>
-            </div>
-            {renderOverlay()}
+  render() {      
+    return (
+      <div className="container-fluid board">
+        <div className="row justify-content-lg-center">
+          <div className="col-lg-6">
+              <div className="card board">
+                <BoardContainer/>
+              </div>
+              {this.renderOverlay()}
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 const mapStateToProps = (state) => {

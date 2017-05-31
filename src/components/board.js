@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { revealTile } from '../actions';
-import Cell from '../components/cell';
-import Hint from '../components/hint';
+import React from 'react';
+import Cell from './cell';
+import Hint from './hint';
 
 export const COLOR_RED = "#FF4136";
 export const COLOR_GREEN = "#2ECC40";
@@ -10,7 +8,7 @@ export const COLOR_YELLOW = "#FFDC00";
 export const COLOR_BLUE = "#0074D9";
 export const COLOR_PURPLE = "#B10DC9";
 
-class Board extends Component {
+export default class Board extends React.PureComponent {
   renderBoard() {
     const blur = this.props.blurred ? 'url(#blurMe)' : '';
     return (
@@ -123,20 +121,3 @@ class Board extends Component {
     );
   }
 }
-
-function mapStateToProps(state) {
-  return { 
-    board: state.game.board,
-    gameId: state.game.id,
-    hints: state.game.hints,
-    blurred: state.game.game_won || state.game.game_lost
-  }
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    revealTile: (gameId, x, y) => dispatch(revealTile(gameId, x, y))
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Board);
