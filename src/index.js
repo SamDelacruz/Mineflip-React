@@ -6,7 +6,10 @@ import { Router, Route, browserHistory } from 'react-router';
 
 import { syncHistoryWithStore } from 'react-router-redux';
 
+import Auth from './service/auth';
+
 import App from './App';
+import Callback from './components/callback';
 import NotFound from './components/not_found';
 import configureStore from './store/configureStore';
 import './index.css';
@@ -46,11 +49,15 @@ const history = syncHistoryWithStore(
   store
 );
 
+const auth = new Auth(store);
+auth.fetchUserInfo();
+
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history} onUpdate={logPageView} >
-      <Route path={'/'} component={App}/>
-      <Route path={'/games/:id'} component={App}/>
+      <Route path={'/'} auth={auth} component={App}/>
+      <Route path={'/games/:id'} auth={auth} component={App}/>
+      <Route path={'/oauth_cb'} auth={auth} component={Callback}/>
       <Route path={'/*'} component={NotFound}/>
     </Router>
   </Provider>,

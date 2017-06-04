@@ -1,21 +1,21 @@
 import React from 'react';
 import Button from '../components/button';
-import Auth from '../service/auth';
+import { connect } from 'react-redux';
 
-export default class UserLoginContainer extends React.PureComponent {
+class UserLoginContainer extends React.PureComponent {
   renderContent() {
-    if(this.props.user) {
+    if(this.props.loggedIn) {
       return (
         <div>
-          <p className="card-text text-center">Player: {this.props.user.name}</p>
-          <Button>Logout</Button>
+          <p className="card-text text-center">Player: {this.props.profile.given_name}</p>
+          <Button onClick={() => this.props.auth.logout()}>Logout</Button>
         </div>
       );
     }
     return (
       <div>
         <p className="card-text text-center">Login to record scores</p>
-        <Button onClick={() => (new Auth()).login()}>Login</Button>
+        <Button onClick={() => this.props.auth.login()}>Login</Button>
       </div>
     )
   }
@@ -32,3 +32,12 @@ export default class UserLoginContainer extends React.PureComponent {
     )
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    loggedIn: state.player.loggedIn,
+    profile: state.player.profile
+  };
+}
+
+export default connect(mapStateToProps)(UserLoginContainer);

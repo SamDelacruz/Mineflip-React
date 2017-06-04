@@ -5,6 +5,9 @@ export const GAME_IS_LOADING = 'GAME_IS_LOADING';
 export const GAME_HAS_ERROR = 'GAME_HAS_ERROR';
 export const FETCH_LEADERBOARD = 'FETCH_SCORES';
 export const LEADERBOARD_FETCH_SUCCESS = 'LEADERBOARD_FETCH_SUCCESS';
+export const PLAYER_LOGGED_IN = 'PLAYER_LOGGED_IN';
+export const PLAYER_LOGGED_OUT = 'PLAYER_LOGGED_OUT';
+
 
 const API_ROOT = (() => {
   if(process.env.NODE_ENV === 'production') {
@@ -124,5 +127,18 @@ export function revealTile(game, x, y) {
       .then((response) => response.json())
       .then((game) => dispatch(gameDataFetchSuccess(game)))
       .catch(() => dispatch(gameHasError(true)));
+  }
+}
+
+export function playerLoggedIn(profile) {
+  return {
+    type: PLAYER_LOGGED_IN,
+    profile
+  }
+}
+
+export function playerLoggedOut() {
+  return {
+    type: PLAYER_LOGGED_OUT
   }
 }

@@ -10,10 +10,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     if(props.params.id === undefined) {
-        this.props.createGame();
-      } else {
-        this.props.getGame(props.params.id);
-      }
+      this.props.createGame();
+    } else {
+      this.props.getGame(props.params.id);
+    }
+
+    this.auth = this.props.route.auth;
   }
 
   componentWillUpdate(nextProps, nextState) {
@@ -31,7 +33,7 @@ class App extends Component {
           </div>
           <div className="col-lg-3">
             <LeaderboardContainer/>
-            <UserLoginContainer/>
+            <UserLoginContainer auth={this.auth}/>
           </div>
         </div>
       </div>
