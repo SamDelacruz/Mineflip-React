@@ -52,8 +52,6 @@ if(idToken && auth.isAuthenticated()) {
   }
 }
 
-console.log(INITIAL_STATE)
-
 const store = configureStore(INITIAL_STATE);
 
 const history = syncHistoryWithStore(

@@ -1,7 +1,6 @@
 import { PLAYER_LOGGED_IN, PLAYER_LOGGED_OUT } from '../actions';
 export function player(state={}, action) {
   if(action.type === PLAYER_LOGGED_IN) {
-    console.log(action)
     return {
       ...state,
       loggedIn: true,
