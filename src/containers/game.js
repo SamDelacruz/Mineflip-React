@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import BoardContainer from './board_container';
 import NewGameButton from './new_game_button';
 
+import { fetchLeaderboard } from '../actions';
+
 const GameWon = ({score}) => {
   return (
     <div className="card-block text-center">
@@ -40,6 +42,7 @@ class Game extends React.PureComponent {
     }
 
     if(content) {
+      this.props.fetchLeaderboard();
       return (
         <div className="overlay">
           {content}
@@ -61,4 +64,10 @@ const mapStateToProps = (state) => {
   return { game_won: state.game.game_won, game_lost: state.game.game_lost, score: state.game.score };
 }
 
-export default connect(mapStateToProps)(Game);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchLeaderboard: () => setTimeout(() => dispatch(fetchLeaderboard()), 1000)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Game);

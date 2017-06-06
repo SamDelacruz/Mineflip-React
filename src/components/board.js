@@ -62,7 +62,7 @@ export default class Board extends React.PureComponent {
   }
 
   cellOnClick(x, y) {
-    this.props.revealTile(this.props.gameId, x, y);
+    this.props.revealTile(this.props.gameId, x, y, this.props.token);
   }
 
   renderCell(rowIdx, colIdx) {

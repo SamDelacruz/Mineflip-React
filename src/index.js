@@ -42,6 +42,18 @@ const INITIAL_STATE = {
   game: INITIAL_GAME
 }
 
+
+const idToken = localStorage.getItem('id_token');
+const auth = new Auth();
+
+if(idToken && auth.isAuthenticated()) {
+  INITIAL_STATE.player = {
+    token: idToken
+  }
+}
+
+console.log(INITIAL_STATE)
+
 const store = configureStore(INITIAL_STATE);
 
 const history = syncHistoryWithStore(
@@ -49,7 +61,7 @@ const history = syncHistoryWithStore(
   store
 );
 
-const auth = new Auth(store);
+auth.store = store;
 auth.fetchUserInfo();
 
 ReactDOM.render(

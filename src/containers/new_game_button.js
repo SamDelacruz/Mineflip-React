@@ -7,18 +7,20 @@ import Button from '../components/button';
 class NewGameButton extends React.PureComponent {
   render() {
     return (
-      <Button onClick={this.props.createGame}>{this.props.children}</Button>
+      <Button onClick={() => this.props.createGame(this.props.token)}>{this.props.children}</Button>
     );
   }
 }
 
 function mapStateToProps(state) {
-  return { gameId: state.game.id }
+  return {
+    token: state.player.token,
+  }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createGame: () => dispatch(createGame())
+    createGame: (token) => dispatch(createGame(token))
   }
 }
 

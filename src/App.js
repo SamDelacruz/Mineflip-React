@@ -10,9 +10,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     if(props.params.id === undefined) {
-      this.props.createGame();
+      this.props.createGame(props.token);
     } else {
-      this.props.getGame(props.params.id);
+      this.props.getGame(props.params.id, props.token);
     }
 
     this.auth = this.props.route.auth;
@@ -42,13 +42,16 @@ class App extends Component {
 }
 
 function mapStateToProps(state) {
-  return { currentGameId: state.game.id };
+  return {
+    currentGameId: state.game.id,
+    token: state.player.token,
+  };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    createGame: () => { dispatch(createGame()) },
-    getGame: (id) => { dispatch(getGame(id)) }
+    createGame: (token) => { dispatch(createGame(token)) },
+    getGame: (id, token) => { dispatch(getGame(id, token)) }
   };
 }
 

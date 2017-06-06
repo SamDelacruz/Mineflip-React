@@ -7,13 +7,14 @@ function mapStateToProps(state) {
     board: state.game.board,
     gameId: state.game.id,
     hints: state.game.hints,
-    blurred: state.game.game_won || state.game.game_lost
+    blurred: state.game.game_won || state.game.game_lost,
+    token: state.player.token
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    revealTile: (gameId, x, y) => dispatch(revealTile(gameId, x, y))
+    revealTile: (gameId, x, y, token) => dispatch(revealTile(gameId, x, y, token))
   }
 }
 

@@ -81,23 +81,32 @@ export function fetchLeaderboard() {
   }
 }
 
-export function createGame() {
-  return fetchGame();
+export function createGame(token) {
+  return fetchGame({ token });
 }
 
-export function getGame(gameId) {
-  return fetchGame(gameId);
+export function getGame(gameId, token) {
+  return fetchGame({ gameId, token });
 }
 
-function fetchGame(gameId) {
-  var url = CREATE_GAME_URL;
-  var method = 'POST';
-  if(gameId !== undefined) {
+function fetchGame({ gameId, token }) {
+  let url = CREATE_GAME_URL;
+  let method = 'POST';
+  if(gameId) {
     url = `${url}/${gameId}`;
     method = 'GET';
   }
+
+  let options = { method: method };
+
+  if(token) {
+    options.headers = {
+      'Authorization': `Bearer ${token}`,
+    }
+  }
+
   return dispatch => {
-    fetch(url, { method: method })
+    fetch(url, options)
       .then((response) => {
         if(!response.ok) {
           throw Error(response.statusText);
@@ -113,9 +122,16 @@ function fetchGame(gameId) {
   }
 }
 
-export function revealTile(game, x, y) {
+export function revealTile(game, x, y, token) {
   return dispatch => {
-    fetch(revealTileUrl(game, x, y), { method: 'GET' })
+    let options = { method: 'GET' };
+
+    if(token) {
+      options.headers = {
+        'Authorization': `Bearer ${token}`,
+      }
+    }
+    fetch(revealTileUrl(game, x, y), options)
       .then((response) => {
         if(!response.ok) {
           throw Error(response.statusText);
@@ -130,10 +146,10 @@ export function revealTile(game, x, y) {
   }
 }
 
-export function playerLoggedIn(profile) {
+export function playerLoggedIn({ profile, token }) {
   return {
     type: PLAYER_LOGGED_IN,
-    profile
+    payload: { profile, token }
   }
 }
 
