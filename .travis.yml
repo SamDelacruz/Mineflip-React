@@ -1,10 +1,17 @@
 language: node_js
 node_js:
-  - 8
-  - 10
+- 8
+- 10
 cache:
   directories:
-    - node_modules
+  - node_modules
 script:
-  - npm test
-  - npm run build
+- npm test
+- npm run build
+deploy:
+  provider: s3
+  access_key_id: AKIAJ4O5P6B72347UMKQ
+  secret_access_key:
+    secure: MdtuVySy3H9ZPeXptGkYcQq/t6VZGXKTx1aC94gBqPvghe2ye+vk4yAPIsRqjNCLtL4laESNZ8/Z0L8a+HSkL2++JgX/fUZlpoc2cEZ+KKV75KZDOhOu8r5eszIv/UyRcbZXiWF1u3YWQDpZP304olcrLlVExnogRS/vkPT8szkr6uxifZ3Crn2K73bFi4WelrfhnDBOtAvMPrh29509gLj+qGNuNoeOD4LI5TyeF9e7e1SY9K+G8rFmuClMnNO17ixirb9A81U24FG9z9LubiNzjQeykdhpcNgl+fTiq/tBvkDuWVLfx7gMJ0Ss6PKsU7rWJG6uznr3wJ2X83YzdnA0K37Y5E6nTJ3tWj/WIgQkENA9ZLYgJRdmqk/CJ0tBUwogNJsRd6hd+NTR3Ge0qzNbfIaT938h5I2aVNO34uVmHGDNBgnA2RE4jJ8wPx4+uzi1mCVKgXCbcjprBi0/usOzTaS/86F2ZThwxFpyL+ncoxIOeIcmxSEUhJdvHmK8g1u8vs/awsiaOlCtUv+I6RPgdVZn8KzOTW51Vle8VJavle+jADusXcYzfLlpVJsVfnWM/kTMFlYbEZCermwVNHIKVWfk60tVANGyVoEGYsOzcvhwr0lUmYgrrVswqLwDxBjq7ZvNvPHVYZpGbPM4ASBp3/JRfABitjaz2eO34ZY=
+  bucket: mineflip-react
+  local_dir: build
